@@ -5,8 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bell ring</title>
   </head>
-  <body></body>
+  <body>
+    <audio id="bell">
+      <source src="zvonek.mp3" type="audio/mp3" />
+    </audio>
+    <button onClick="trigger()">TRIGGER</button>
+    <div id="display" style="font-size: 50px; color: black"></div>
+  </body>
   <script>
-    console.log('Hello from JS');
+    const TIMEOUT = 1000 * 60 * 3;
+
+    function renderTimeout() {
+      let timeout = TIMEOUT;
+      const disp = document.getElementById('display');
+
+      const interval = setInterval(() => {
+        console.log('running');
+
+        disp.innerText = timeout / 1000;
+        timeout -= 1000;
+
+        if (timeout <= 0) clearInterval(interval);
+      }, 1000);
+    }
+
+    function trigger() {
+      renderTimeout();
+      setTimeout(() => {
+        play();
+      }, TIMEOUT);
+    }
+
+    function play() {
+      const audio = document.getElementById('bell');
+      audio.play();
+    }
   </script>
 </html>
